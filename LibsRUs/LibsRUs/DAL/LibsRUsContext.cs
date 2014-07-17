@@ -27,12 +27,11 @@ namespace LibsRUs.DAL
 
         public DbSet<Lib> Libs { get; set; }
         public DbSet<LibTag> LibTags { get; set; }
+        public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public DbSet<Platform> Platforms { get; set; }
+        
+        //Join Tables
+        //public DbSet<LibPlatform> LibPlatforms { get; set; }
+        //public DbSet<LibProgrammingLanguage> LibProgrammingLanguages { get; set; }
     }
-
-    //public class ApplicationDbContext : 
-    //{
-    //    public ApplicationDbContext() : base("DefaultConnection")
-    //    {
-    //    }
-    //}
 }

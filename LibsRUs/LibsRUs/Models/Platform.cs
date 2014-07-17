@@ -11,5 +11,7 @@ namespace LibsRUs.Models
         public Int32 ID { get; set; }
         [Required]
         public String Name { get; set; }
+
+        public virtual ICollection<Lib> Libs { get; set; }
     }
 }

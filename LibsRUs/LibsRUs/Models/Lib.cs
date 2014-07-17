@@ -18,5 +18,7 @@ namespace LibsRUs.Models
 
         public virtual ICollection<LibTag> LibTags { get; set; }
         public virtual ICollection<UserFavoriteLib> UserFavoriteLibs { get; set; }
+        public virtual ICollection<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public virtual ICollection<Platform> Platforms { get; set; }
     }
 }

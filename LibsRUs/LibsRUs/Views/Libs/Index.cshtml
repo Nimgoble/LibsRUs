@@ -14,11 +14,8 @@
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
-        <th>
+        <th style="width:400px;">
             @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LibURL)
         </th>
     </tr>
 
@@ -28,10 +25,7 @@
             @Html.ActionLink(item.Name, "Details", new {id = item.ID})
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LibURL)
+            <div style="width:400px;" class="ellipsis">@Html.DisplayFor(modelItem => item.Description)</div>
         </td>
     </tr>
 }
