@@ -8,6 +8,14 @@ namespace LibsRUs.Models
 {
     public class Lib
     {
+        public Lib()
+        {
+            this.LibTags = new HashSet<LibTag>();
+            this.UserFavoriteLibs = new HashSet<UserFavoriteLib>();
+            this.ProgrammingLanguages = new HashSet<ProgrammingLanguage>();
+            this.Platforms = new HashSet<Platform>();
+        }
+
         public Int32 ID { get; set; }
         [Required]
         public String Name { get; set; }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LibsRUs.Models
 {
@@ -15,6 +16,8 @@ namespace LibsRUs.Models
 
         public Int32 ID { get; set; }
         [Required]
+        [Index("TagTextIndex", IsUnique=true)]
+        [StringLength(75)]
         public String TagText { get; set; }
 
         public virtual ICollection<Lib> Libs { get; set; }

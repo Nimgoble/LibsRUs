@@ -17,8 +17,7 @@ namespace LibsRUs.Migrations
 
         protected override void Seed(LibsRUs.DAL.LibsRUsContext context)
         {
-            DebugSection("Begin Libs");
-            context.Libs.ToList().ForEach(x => context.Libs.Remove(x));
+            //context.Libs.ToList().ForEach(x => context.Libs.Remove(x));
             //Seed the Libs
             var libs = new List<Lib>
             {
@@ -30,9 +29,7 @@ namespace LibsRUs.Migrations
             //context.Libs.
             libs.ForEach(x => context.Libs.AddOrUpdate(x));
             context.SaveChanges();
-            DebugSection("End Libs");
-
-            DebugSection("Begin Tags");
+            
             //Seed the Tags
             var tags = new List<LibTag>
             {
@@ -54,9 +51,7 @@ namespace LibsRUs.Migrations
             };
             tags.ForEach(x => context.LibTags.AddOrUpdate(x));
             context.SaveChanges();
-            DebugSection("End Tags");
 
-            DebugSection("Begin ProgrammingLanguages");
             //Seed the ProgrammingLanguages
             var programmingLanguages = new List<ProgrammingLanguage>
             {
@@ -79,9 +74,7 @@ namespace LibsRUs.Migrations
             };
             programmingLanguages.ForEach(x => context.ProgrammingLanguages.AddOrUpdate(x));
             context.SaveChanges();
-            DebugSection("End ProgrammingLanguages");
 
-            DebugSection("Begin Platforms");
             //Seed the Platforms
             var platforms = new List<Platform>
             {
@@ -94,39 +87,24 @@ namespace LibsRUs.Migrations
             };
             platforms.ForEach(x => context.Platforms.AddOrUpdate(x));
             context.SaveChanges();
-            DebugSection("End Platforms");
 
             //Add tags, languages, and platforms to the 'WPF Textbox Autocomplete' lib
             Lib wpfTextBoxAutoComplete = context.Libs.Single(x => x.Name == "WPF Textbox AutoComplete");
             //Tags
-            DebugSection("Begin add tags to test lib");
             var relevantLibTags = context.LibTags.Where(x => x.TagText == "WPF" || x.TagText == ".NET" || x.TagText == "Auto-Completion").ToList();
             relevantLibTags.ForEach(x => { wpfTextBoxAutoComplete.LibTags.Add(x); x.Libs.Add(wpfTextBoxAutoComplete); });
             context.SaveChanges();
-            DebugSection("End add tags to test lib");
 
-            DebugSection("Begin add ProgrammingLanguage to test lib");
             //Programming Languages
             ProgrammingLanguage relevantProgrammingLanguage = context.ProgrammingLanguages.Single(x => x.Name == "C#");
             wpfTextBoxAutoComplete.ProgrammingLanguages.Add(relevantProgrammingLanguage);
             relevantProgrammingLanguage.Libs.Add(wpfTextBoxAutoComplete);
             context.SaveChanges();
-            DebugSection("End add ProgrammingLanguage to test lib");
 
-            DebugSection("Begin add Platforms to test lib");
             //Platforms
             var relevantPlatforms = context.Platforms.Where(x => x.Name == "Windows" || x.Name == "Windows Phone").ToList();
             relevantPlatforms.ForEach(x => { wpfTextBoxAutoComplete.Platforms.Add(x); x.Libs.Add(wpfTextBoxAutoComplete); });
             context.SaveChanges();
-            DebugSection("End add Platforms to test lib");
-        }
-        private void DebugSection(String section)
-        {
-            Console.WriteLine(Environment.NewLine);
-            Console.WriteLine("===============================================================");
-            Console.WriteLine(section);
-            Console.WriteLine("===============================================================");
-            Console.WriteLine(Environment.NewLine);
         }
     }
 }

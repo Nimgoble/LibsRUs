@@ -18,12 +18,6 @@ namespace LibsRUs
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
-            var configuration = new LibsRUs.Migrations.Configuration();
-            var migrator = new DbMigrator(configuration);
-            migrator.Update();
-
-            //Database.SetInitializer<LibsRUs.DAL.LibsRUsContext>(new MigrateDatabaseToLatestVersion<LibsRUs.DAL.LibsRUsContext, LibsRUs.Migrations.Configuration>());
         }
     }
 }

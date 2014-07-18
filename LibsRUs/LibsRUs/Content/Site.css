@@ -48,3 +48,24 @@ input[type="checkbox"].input-validation-error {
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
 }
+
+.libs
+{
+    min-width:970px;
+    margin-top:70px;
+}
+
+.leftNav
+{
+    width:220px;
+    float:left;
+    position:relative;
+}
+
+.rightContent
+{
+    margin-left: 220px;
+    float:left;
+    overflow:hidden;
+    width:100%;
+}

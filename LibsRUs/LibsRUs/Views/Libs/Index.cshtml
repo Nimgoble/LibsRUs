@@ -1,33 +1,42 @@
 ﻿@model IEnumerable<LibsRUs.Models.Lib>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Libs-R-Us";
 }
+<div class="libs">
+    <div class="leftNav">
+        <div>Test</div>
+        <hr />
+        <div>Test2</div>
+        <hr />
+        <div>Test3</div>
+    </div>
+    <div class="rightContent">
+        <p>
+            @Html.ActionLink("Create New", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th style="width:400px;">
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+            </tr>
 
-<h2>Index</h2>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.ActionLink(item.Name, "Details", new { id = item.ID })
+                    </td>
+                    <td>
+                        <div style="width:400px;" class="ellipsis">@Html.DisplayFor(modelItem => item.Description)</div>
+                    </td>
+                </tr>
+            }
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th style="width:400px;">
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink(item.Name, "Details", new {id = item.ID})
-        </td>
-        <td>
-            <div style="width:400px;" class="ellipsis">@Html.DisplayFor(modelItem => item.Description)</div>
-        </td>
-    </tr>
-}
-
-</table>
+        </table>
+    </div>
+</div>

@@ -16,7 +16,7 @@ namespace LibsRUs
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Libs", action = "Index", id = UrlParameter.Optional }
             );
         }
     }
