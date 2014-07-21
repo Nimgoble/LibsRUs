@@ -1,42 +1,72 @@
 ﻿@model IEnumerable<LibsRUs.Models.Lib>
+@using LibsRUs.Models
 
 @{
     ViewBag.Title = "Libs-R-Us";
 }
 <div class="libs">
     <div class="leftNav">
-        <div>Test</div>
-        <hr />
-        <div>Test2</div>
-        <hr />
-        <div>Test3</div>
+        <div>
+            <h4>Programming Languages</h4>
+            <div>
+                @{
+                    foreach(ProgrammingLanguage language in ViewBag.ProgrammingLanguages)
+                    {
+                        <div>@Html.ActionLink(language.Name, "Details", "ProgrammingLanguages", new {ID = language.ID}, null)</div>
+                    }
+                }
+            </div>
+        </div>
+        <div>
+            <h4>Platforms</h4>
+            <div>
+                @{
+                    foreach(Platform platform in ViewBag.Platforms)
+                    {
+                        <div>@Html.ActionLink(platform.Name, "Details", "Platforms", new { ID = platform.ID }, null)</div>
+                    }
+                }
+            </div>
+        </div>
+        <div>
+            <h4>Tags</h4>
+            <div>
+                @{
+                    foreach (LibTag tag in ViewBag.LibTags)
+                    {
+                        <div>@Html.ActionLink(tag.TagText, "Details", "LibTags", new { ID = tag.ID }, null)</div>
+                    }
+                }
+            </div>
+        </div>
     </div>
-    <div class="rightContent">
-        <p>
-            @Html.ActionLink("Create New", "Create")
-        </p>
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <th style="width:400px;">
-                    @Html.DisplayNameFor(model => model.Description)
-                </th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.ActionLink(item.Name, "Details", new { id = item.ID })
-                    </td>
-                    <td>
-                        <div style="width:400px;" class="ellipsis">@Html.DisplayFor(modelItem => item.Description)</div>
-                    </td>
-                </tr>
-            }
-
-        </table>
+    <div class="rightContentContainer">
+        <div class="rightContent">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width:400px;">
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Description)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div style="width:300px;">@Html.ActionLink(item.Name, "Details", new { id = item.ID })</div>
+                            </td>
+                            <td>
+                                <div style="width:420px;" class="ellipsis">@Html.DisplayFor(modelItem => item.Description)</div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>

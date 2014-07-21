@@ -11,110 +11,107 @@ using LibsRUs.DAL;
 
 namespace LibsRUs.Controllers
 {
-    public class LibsController : Controller
+    public class LibTagsController : Controller
     {
         private LibsRUsContext db = new LibsRUsContext();
 
-        // GET: /Libs/
+        // GET: /LibTags/
         public ActionResult Index()
         {
-            ViewBag.Platforms = db.Platforms.ToList();
-            ViewBag.ProgrammingLanguages = db.ProgrammingLanguages.OrderByDescending(x => x.Libs.Count).Take(10).ToList();
-            ViewBag.LibTags = db.LibTags.OrderByDescending(x => x.Libs.Count).Take(10).ToList();
-            return View(db.Libs.ToList());
+            return View(db.LibTags.ToList());
         }
 
-        // GET: /Libs/Details/5
+        // GET: /LibTags/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lib lib = db.Libs.Include("Platforms").Include("ProgrammingLanguages").Include("LibTags").SingleOrDefault(x => x.ID == id);
-            if (lib == null)
+            LibTag libtag = db.LibTags.Find(id);
+            if (libtag == null)
             {
                 return HttpNotFound();
             }
-            return View(lib);
+            return View(libtag);
         }
 
-        // GET: /Libs/Create
+        // GET: /LibTags/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Libs/Create
+        // POST: /LibTags/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,Name,Description,LibURL")] Lib lib)
+        public ActionResult Create([Bind(Include="ID,TagText")] LibTag libtag)
         {
             if (ModelState.IsValid)
             {
-                db.Libs.Add(lib);
+                db.LibTags.Add(libtag);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(lib);
+            return View(libtag);
         }
 
-        // GET: /Libs/Edit/5
+        // GET: /LibTags/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lib lib = db.Libs.Find(id);
-            if (lib == null)
+            LibTag libtag = db.LibTags.Find(id);
+            if (libtag == null)
             {
                 return HttpNotFound();
             }
-            return View(lib);
+            return View(libtag);
         }
 
-        // POST: /Libs/Edit/5
+        // POST: /LibTags/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,Name,Description,LibURL")] Lib lib)
+        public ActionResult Edit([Bind(Include="ID,TagText")] LibTag libtag)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lib).State = EntityState.Modified;
+                db.Entry(libtag).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(lib);
+            return View(libtag);
         }
 
-        // GET: /Libs/Delete/5
+        // GET: /LibTags/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lib lib = db.Libs.Find(id);
-            if (lib == null)
+            LibTag libtag = db.LibTags.Find(id);
+            if (libtag == null)
             {
                 return HttpNotFound();
             }
-            return View(lib);
+            return View(libtag);
         }
 
-        // POST: /Libs/Delete/5
+        // POST: /LibTags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Lib lib = db.Libs.Find(id);
-            db.Libs.Remove(lib);
+            LibTag libtag = db.LibTags.Find(id);
+            db.LibTags.Remove(libtag);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

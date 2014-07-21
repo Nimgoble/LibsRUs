@@ -163,6 +163,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibsController.cs" />
+    <Compile Include="Controllers\LibTagsController.cs" />
+    <Compile Include="Controllers\PlatformsController.cs" />
+    <Compile Include="Controllers\ProgrammingLanguagesController.cs" />
     <Compile Include="DAL\LibsRUsContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -253,6 +256,21 @@
     <Content Include="Views\Libs\Details.cshtml" />
     <Content Include="Views\Libs\Edit.cshtml" />
     <Content Include="Views\Libs\Index.cshtml" />
+    <Content Include="Views\LibTags\Create.cshtml" />
+    <Content Include="Views\LibTags\Delete.cshtml" />
+    <Content Include="Views\LibTags\Details.cshtml" />
+    <Content Include="Views\LibTags\Edit.cshtml" />
+    <Content Include="Views\LibTags\Index.cshtml" />
+    <Content Include="Views\ProgrammingLanguages\Create.cshtml" />
+    <Content Include="Views\ProgrammingLanguages\Delete.cshtml" />
+    <Content Include="Views\ProgrammingLanguages\Details.cshtml" />
+    <Content Include="Views\ProgrammingLanguages\Edit.cshtml" />
+    <Content Include="Views\ProgrammingLanguages\Index.cshtml" />
+    <Content Include="Views\Platforms\Create.cshtml" />
+    <Content Include="Views\Platforms\Delete.cshtml" />
+    <Content Include="Views\Platforms\Details.cshtml" />
+    <Content Include="Views\Platforms\Edit.cshtml" />
+    <Content Include="Views\Platforms\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

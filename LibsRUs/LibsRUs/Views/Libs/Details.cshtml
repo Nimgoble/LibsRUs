@@ -1,4 +1,5 @@
 ﻿@model LibsRUs.Models.Lib
+@using LibsRUs.Models
 
 @{
     ViewBag.Title = @Model.Name;
@@ -18,6 +19,35 @@
         <dt>@Html.DisplayNameFor(model => model.Description)</dt>
         <dd>@Html.DisplayFor(model => model.Description)</dd>
 
+        <dt>Tags</dt>
+        <dd>
+            @{
+                foreach (LibTag tag in Model.LibTags)
+                {
+                    <span>@Html.ActionLink(tag.TagText, "Details", "LibTags", new { ID = tag.ID }, null)</span>
+                }
+            }
+        </dd>
+
+        <dt>Programming Languages</dt>
+        <dd>
+            @{
+                foreach (ProgrammingLanguage language in Model.ProgrammingLanguages)
+                {
+                    <span>@Html.ActionLink(language.Name, "Details", "ProgrammingLanguages", new { ID = language.ID }, null)</span>
+                }
+            }
+        </dd>
+
+        <dt>Platforms</dt>
+        <dd>
+            @{
+                foreach (Platform platform in Model.Platforms)
+                {
+                    <span>@Html.ActionLink(platform.Name, "Details", "Platforms", new { ID = platform.ID }, null)</span>
+                }
+            }
+        </dd>
     </dl>
 </div>
 

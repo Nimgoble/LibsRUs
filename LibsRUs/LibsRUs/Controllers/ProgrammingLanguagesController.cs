@@ -11,110 +11,107 @@ using LibsRUs.DAL;
 
 namespace LibsRUs.Controllers
 {
-    public class LibsController : Controller
+    public class ProgrammingLanguagesController : Controller
     {
         private LibsRUsContext db = new LibsRUsContext();
 
-        // GET: /Libs/
+        // GET: /ProgrammingLanguages/
         public ActionResult Index()
         {
-            ViewBag.Platforms = db.Platforms.ToList();
-            ViewBag.ProgrammingLanguages = db.ProgrammingLanguages.OrderByDescending(x => x.Libs.Count).Take(10).ToList();
-            ViewBag.LibTags = db.LibTags.OrderByDescending(x => x.Libs.Count).Take(10).ToList();
-            return View(db.Libs.ToList());
+            return View(db.ProgrammingLanguages.ToList());
         }
 
-        // GET: /Libs/Details/5
+        // GET: /ProgrammingLanguages/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lib lib = db.Libs.Include("Platforms").Include("ProgrammingLanguages").Include("LibTags").SingleOrDefault(x => x.ID == id);
-            if (lib == null)
+            ProgrammingLanguage programminglanguage = db.ProgrammingLanguages.Find(id);
+            if (programminglanguage == null)
             {
                 return HttpNotFound();
             }
-            return View(lib);
+            return View(programminglanguage);
         }
 
-        // GET: /Libs/Create
+        // GET: /ProgrammingLanguages/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Libs/Create
+        // POST: /ProgrammingLanguages/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ID,Name,Description,LibURL")] Lib lib)
+        public ActionResult Create([Bind(Include="ID,Name,Abbreviation")] ProgrammingLanguage programminglanguage)
         {
             if (ModelState.IsValid)
             {
-                db.Libs.Add(lib);
+                db.ProgrammingLanguages.Add(programminglanguage);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(lib);
+            return View(programminglanguage);
         }
 
-        // GET: /Libs/Edit/5
+        // GET: /ProgrammingLanguages/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lib lib = db.Libs.Find(id);
-            if (lib == null)
+            ProgrammingLanguage programminglanguage = db.ProgrammingLanguages.Find(id);
+            if (programminglanguage == null)
             {
                 return HttpNotFound();
             }
-            return View(lib);
+            return View(programminglanguage);
         }
 
-        // POST: /Libs/Edit/5
+        // POST: /ProgrammingLanguages/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ID,Name,Description,LibURL")] Lib lib)
+        public ActionResult Edit([Bind(Include="ID,Name,Abbreviation")] ProgrammingLanguage programminglanguage)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(lib).State = EntityState.Modified;
+                db.Entry(programminglanguage).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(lib);
+            return View(programminglanguage);
         }
 
-        // GET: /Libs/Delete/5
+        // GET: /ProgrammingLanguages/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Lib lib = db.Libs.Find(id);
-            if (lib == null)
+            ProgrammingLanguage programminglanguage = db.ProgrammingLanguages.Find(id);
+            if (programminglanguage == null)
             {
                 return HttpNotFound();
             }
-            return View(lib);
+            return View(programminglanguage);
         }
 
-        // POST: /Libs/Delete/5
+        // POST: /ProgrammingLanguages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Lib lib = db.Libs.Find(id);
-            db.Libs.Remove(lib);
+            ProgrammingLanguage programminglanguage = db.ProgrammingLanguages.Find(id);
+            db.ProgrammingLanguages.Remove(programminglanguage);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

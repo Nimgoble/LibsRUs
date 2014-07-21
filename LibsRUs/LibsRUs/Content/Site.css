@@ -53,19 +53,37 @@ input[type="checkbox"].input-validation-error {
 {
     min-width:970px;
     margin-top:70px;
+    /*min-height:400px;*/
+    overflow:auto;
+    width:100%;
 }
 
 .leftNav
 {
     width:220px;
     float:left;
+    z-index:2;
+}
+.leftNav *
+{
+    z-index:inherit;
     position:relative;
 }
 
-.rightContent
+.rightContentContainer
 {
-    margin-left: 220px;
-    float:left;
+    margin-left: -230px;
+    float:right;
     overflow:hidden;
     width:100%;
+}
+.rightContent
+{
+    margin-left: 230px;
+    right:23%;
+    /*width: 740px;*/
+    width:100%;
+    margin-right: -230px;
+    /*padding-right: 230px;*/
+    /*overflow:hidden;*/
 }
