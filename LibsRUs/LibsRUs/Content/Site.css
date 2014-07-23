@@ -87,3 +87,21 @@ input[type="checkbox"].input-validation-error {
     /*padding-right: 230px;*/
     /*overflow:hidden;*/
 }
+
+.libsTable
+{
+    width:720px;
+    table-layout:fixed;
+}
+.nameCell
+{
+    width:300px;
+}
+
+.descriptionCell
+{
+    max-width:420px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}

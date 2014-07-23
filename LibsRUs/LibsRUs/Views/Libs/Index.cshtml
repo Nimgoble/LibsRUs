@@ -42,13 +42,13 @@
     </div>
     <div class="rightContentContainer">
         <div class="rightContent">
-            <table class="table">
+            <table class="libsTable table" >
                 <thead>
                     <tr>
-                        <th style="width:400px;">
+                        <th class="nameCell">
                             @Html.DisplayNameFor(model => model.Name)
                         </th>
-                        <th>
+                        <th class="descriptionCell">
                             @Html.DisplayNameFor(model => model.Description)
                         </th>
                     </tr>
@@ -57,11 +57,11 @@
                     @foreach (var item in Model)
                     {
                         <tr>
-                            <td>
-                                <div style="width:300px;">@Html.ActionLink(item.Name, "Details", new { id = item.ID })</div>
+                            <td class="nameCell">
+                                @Html.ActionLink(item.Name, "Details", new { id = item.ID })
                             </td>
-                            <td>
-                                <div style="width:420px;" class="ellipsis">@Html.DisplayFor(modelItem => item.Description)</div>
+                            <td class="descriptionCell">
+                                @Html.DisplayFor(modelItem => item.Description)
                             </td>
                         </tr>
                     }
