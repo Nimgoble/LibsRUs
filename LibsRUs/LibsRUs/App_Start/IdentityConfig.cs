@@ -4,6 +4,11 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 
+using System.Configuration;
+using System.Net;
+
+using SendGrid;
+
 using LibsRUs.Models;
 using LibsRUs.DAL;
 
@@ -72,7 +77,36 @@ namespace LibsRUs
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your sms service here to send a text message.
-            return Task.FromResult(0);
+            return configSendGridAsync(message);
+        }
+
+        private Task configSendGridAsync(IdentityMessage message)
+        {
+            var myMessage = new SendGridMessage();
+            myMessage.AddTo(message.Destination);
+            myMessage.From = new System.Net.Mail.MailAddress("admin@libsrus.org", "Libs-R-Us");
+            myMessage.Subject = message.Subject;
+            myMessage.Text = message.Body;
+            myMessage.Html = message.Body;
+
+            var credentials = new NetworkCredential
+            (
+                    ConfigurationManager.AppSettings["MailAccount"],
+                    ConfigurationManager.AppSettings["MailPassword"]
+            );
+
+            // Create a Web transport for sending email.
+            var transportWeb = new Web(credentials);
+
+            // Send the email.
+            if (transportWeb != null)
+            {
+                return transportWeb.DeliverAsync(myMessage);
+            }
+            else
+            {
+                return Task.FromResult(0);
+            }
         }
     }
 }
