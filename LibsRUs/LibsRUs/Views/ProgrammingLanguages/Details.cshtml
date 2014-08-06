@@ -6,24 +6,31 @@
 
 <h2>@Model.Name Libs</h2>
 
+<p>
+    @Html.ActionLink("Back to Programming Languages", "Index")
+</p>
+
 <div>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Abbreviation)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Abbreviation)
-        </dd>
-
-    </dl>
+    <table class="libsTable table">
+        <thead>
+            <tr>
+                <th class="nameCell">Name</th>
+                <th class="descriptionCell">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Libs)
+            {
+                <tr>
+                    <td class="nameCell">
+                        @Html.ActionLink(item.Name, "Details", new { id = item.ID })
+                    </td>
+                    <td class="descriptionCell">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>

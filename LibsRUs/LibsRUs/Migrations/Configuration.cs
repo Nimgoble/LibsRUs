@@ -30,8 +30,6 @@ namespace LibsRUs.Migrations
             //    );
             //
 
-            /*context.Libs.ToList().ForEach(x => context.Libs.Remove(x));
-            context.SaveChanges();*/
             //Seed the Libs
             var libs = new Lib[]
             {
@@ -48,8 +46,8 @@ namespace LibsRUs.Migrations
             //Seed the Tags
             var tags = new LibTag[]
             {
-                new LibTag{TagText="PDF"},
-                new LibTag{TagText="PDF Rasterizer"},
+                new LibTag{TagText="PDF", Description="All libraries dealing the with creation/modification of PDFs"},
+                new LibTag{TagText="PDF Rasterizer", Description="All libraries dealing with rasterizing PDFs"},
                 new LibTag{TagText="Game Development"},
                 new LibTag{TagText="Game Programming"},
                 new LibTag{TagText="Physics"},
@@ -60,9 +58,9 @@ namespace LibsRUs.Migrations
                 new LibTag{TagText="Media"},
                 new LibTag{TagText="2D"},
                 new LibTag{TagText="3D"},
-                new LibTag{TagText="Open Source"},
+                new LibTag{TagText="Open Source", Description="All libraries that are open source"},
                 new LibTag{TagText="jQuery"},
-                new LibTag{TagText="MVC"}
+                new LibTag{TagText="MVC", Description="All libraries dealing with the Model-View-Controller pattern"}
             };
             //tags.ForEach(x => context.LibTags.AddOrUpdate(h => h.TagText, x));
             context.LibTags.AddOrUpdate(h => h.TagText, tags);

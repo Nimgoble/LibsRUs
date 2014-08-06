@@ -14,7 +14,7 @@ namespace LibsRUs.DAL
     {
         //"throwIfV1Schema: false" - Fixes "The ConnectionString property has not been initialized."
         //For whatever reason...  2 hour headache.
-        public LibsRUsContext() : base("LibsRUsContext", throwIfV1Schema: false)
+        public LibsRUsContext() : base("name=LibsRUsContext", throwIfV1Schema: false)
         {
         }
 

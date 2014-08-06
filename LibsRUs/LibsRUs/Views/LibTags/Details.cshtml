@@ -1,26 +1,38 @@
 ﻿@model LibsRUs.Models.LibTag
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = (Model.TagText + " Libs");
 }
 
-<h2>Details</h2>
+<h2>@Model.TagText Libs</h2>
+<h4>@Model.Description</h4>
+
+<p>
+    @Html.ActionLink("Back to Tags", "Index")
+</p>
 
 <div>
-    <h4>LibTag</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TagText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TagText)
-        </dd>
-
-    </dl>
+    <table class="libsTable table">
+        <thead>
+            <tr>
+                <th class="nameCell">Name</th>
+                <th class="descriptionCell">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Libs)
+            {
+                <tr>
+                    <td class="nameCell">
+                        @Html.ActionLink(item.Name, "Details", new { id = item.ID })
+                    </td>
+                    <td class="descriptionCell">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

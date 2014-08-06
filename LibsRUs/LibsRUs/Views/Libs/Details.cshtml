@@ -5,8 +5,14 @@
     ViewBag.Title = @Model.Name;
 }
 
-<h2>@Model.Name</h2>
-
+<div>
+    <div class="float-left">
+        <h2>@Model.Name</h2>
+    </div>
+    <div class="float-left">
+        @Html.ActionLink("Edit", "Edit", new { id = @Model.ID })
+    </div>
+</div>
 <div>
     <hr />
     <dl class="dl-horizontal">

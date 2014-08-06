@@ -16,7 +16,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
@@ -178,6 +179,10 @@
     <Compile Include="Migrations\201408051529263_InitialMigration.Designer.cs">
       <DependentUpon>201408051529263_InitialMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408061744024_LibTagDescription.cs" />
+    <Compile Include="Migrations\201408061744024_LibTagDescription.Designer.cs">
+      <DependentUpon>201408061744024_LibTagDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Lib.cs" />
@@ -261,6 +266,7 @@
     <Content Include="Views\ProgrammingLanguages\Details.cshtml" />
     <Content Include="Views\ProgrammingLanguages\Edit.cshtml" />
     <Content Include="Views\ProgrammingLanguages\Index.cshtml" />
+    <Content Include="Views\Account\DisplayEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -275,6 +281,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201408051529263_InitialMigration.resx">
       <DependentUpon>201408051529263_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408061744024_LibTagDescription.resx">
+      <DependentUpon>201408061744024_LibTagDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -295,7 +304,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57314</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44300/</IISUrl>
+          <IISUrl>http://localhost:57314/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

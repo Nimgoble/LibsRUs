@@ -1,26 +1,37 @@
 ﻿@model LibsRUs.Models.Platform
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = (Model.Name + " Libs");
 }
 
-<h2>Details</h2>
+<h2>@Model.Name Libs</h2>
+
+<p>
+    @Html.ActionLink("Back to Platforms", "Index")
+</p>
 
 <div>
-    <h4>Platform</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+    <table class="libsTable table">
+        <thead>
+            <tr>
+                <th class="nameCell">Name</th>
+                <th class="descriptionCell">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Libs)
+            {
+                <tr>
+                    <td class="nameCell">
+                        @Html.ActionLink(item.Name, "Details", new { id = item.ID })
+                    </td>
+                    <td class="descriptionCell">
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

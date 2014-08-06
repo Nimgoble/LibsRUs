@@ -20,6 +20,8 @@ namespace LibsRUs.Models
         [StringLength(75)]
         public String TagText { get; set; }
 
+        public String Description { get; set; }
+
         public virtual ICollection<Lib> Libs { get; set; }
     }
 }

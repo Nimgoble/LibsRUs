@@ -91,30 +91,30 @@ namespace LibsRUs.Controllers
         }
 
         // GET: ProgrammingLanguages/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            ProgrammingLanguage programmingLanguage = db.ProgrammingLanguages.Find(id);
-            if (programmingLanguage == null)
-            {
-                return HttpNotFound();
-            }
-            return View(programmingLanguage);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    ProgrammingLanguage programmingLanguage = db.ProgrammingLanguages.Find(id);
+        //    if (programmingLanguage == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(programmingLanguage);
+        //}
 
-        // POST: ProgrammingLanguages/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            ProgrammingLanguage programmingLanguage = db.ProgrammingLanguages.Find(id);
-            db.ProgrammingLanguages.Remove(programmingLanguage);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //// POST: ProgrammingLanguages/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    ProgrammingLanguage programmingLanguage = db.ProgrammingLanguages.Find(id);
+        //    db.ProgrammingLanguages.Remove(programmingLanguage);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {
