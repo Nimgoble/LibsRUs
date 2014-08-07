@@ -22,6 +22,7 @@ namespace LibsRUs.Models
         [Required]
         public String Description { get; set; }
         [Required]
+        [Display(Name="Library Site")]
         public String LibURL { get; set; }
 
         public virtual ICollection<LibTag> LibTags { get; set; }

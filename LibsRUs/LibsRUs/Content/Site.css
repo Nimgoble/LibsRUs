@@ -123,3 +123,9 @@ input[type="checkbox"].input-validation-error {
     text-overflow:ellipsis;
     white-space:nowrap;
 }
+
+.libDescription
+{
+    width:400px;
+    height:200px;
+}
