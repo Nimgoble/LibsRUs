@@ -50,13 +50,16 @@ namespace LibsRUs.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Description,LibURL")] Lib lib)
+        public ActionResult Create([Bind(Include = "ID,Name,Description,LibURL,LibTags")] Lib lib)
         {
             if (ModelState.IsValid)
             {
+                foreach(LibTag libTag in lib.LibTags)
+                    db.LibTags.Attach(libTag);
+
                 db.Libs.Add(lib);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = lib.ID });
             }
 
             return View(lib);

@@ -6,11 +6,10 @@
 
 <h2>New Library</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -39,6 +38,19 @@
         </div>
 
         <div class="form-group">
+            <label class="control-label col-md-2">Tags</label>
+            <div class="col-md-10">
+                <input type="text" id="tagSearch" class="form-control" />
+            </div>
+            <div class="col-md-10">
+                <div id="tagsContainer" style="width:100%;min-height:200px;border:1px solid black;margin-top:10px;">
+
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
@@ -50,6 +62,94 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
+@section Scripts 
+{
     @Scripts.Render("~/bundles/jqueryval")
+    <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script type="text/javascript">
+        $(
+            function ()
+            {
+                $('#tagSearch').autocomplete
+                (
+                    {
+                        source: function (request, response)
+                        {
+                            $.ajax(
+                            {
+                                url: '@Url.Action("GetLibTags", "LibTags")',
+                                dataType: "json",
+                                data:
+                                {
+                                    term: request.term,
+                                },
+                                success: function (data)
+                                {
+                                    response(data);
+                                }
+                            });
+                        },
+                        //source: '@Url.Action("GetLibTags", "LibTags")',
+                        select: function (event, ui)
+                        {
+                            if (ui.item !== null)
+                            {
+                                selectTag(ui.item.value);
+                                $('#tagSearch').val('');
+                                return false;
+                            }
+                            else
+                            {
+                                $(this).removeClass("field-validation-valid").addClass("field-validation-error");
+                            }
+                        }
+                    }
+                )
+
+                $(document).on
+                (
+                    'click',
+                    '.libTagItem',
+                    function ()
+                    {
+                        $(this).closest('.libTagItem').hide('blind', function () { $(this).remove(); });
+                        var cl = $('#tagsContainer');
+                        var terms = cl.find('.libTagItem');
+                        return false;
+                    }
+                );
+            }
+        )
+
+        function selectTag(tagText)
+        {
+            var jsonObject =
+            {
+                "tagText": tagText
+            };
+
+            $.ajax
+            (
+                {
+                    url: '@Url.Action("GetLibTagItem", "LibTags")',
+                    contentType: 'application/json; charset=utf-8',
+                    data: jsonObject,
+                    dataType: "html",
+                    cache: false,
+                    success: insertTag
+                }
+            );
+            return false;
+        }
+
+        function insertTag(data)
+        {
+            var cl = $('#tagsContainer');
+            cl.append(data);
+            var terms = cl.find('.libTagItem');
+            terms.last().hide().show('blind');
+        }
+
+    </script>
+
 }

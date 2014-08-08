@@ -1,0 +1,13 @@
+﻿@model LibsRUs.Models.LibTag
+
+@{ ViewContext.FormContext = new FormContext(); }
+@using (Html.BeginCollectionItem("LibTags"))
+{
+    <div class="libTagItem">
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.Description)
+        @Html.HiddenFor(m => m.TagText)
+        <div>@Html.DisplayFor(m => m.TagText)</div>
+        <a href="javascript:void(0);" class="removeLibTag" title="Remove">Remove</a>
+    </div>
+}

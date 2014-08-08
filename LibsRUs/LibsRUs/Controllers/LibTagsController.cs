@@ -116,6 +116,23 @@ namespace LibsRUs.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult GetLibTagItem(String tagText)
+        {
+            LibTag libTag = db.LibTags.SingleOrDefault(x => x.TagText == tagText);
+            if(libTag == null)
+            {
+                return Json(new { Succes = false, ErrorText = "Tag doesn't exist" });
+            }
+            return PartialView("_LibTag", libTag);
+        }
+
+        public ActionResult GetLibTags(String term)
+        {
+            List<LibTag> libTags = db.LibTags.ToList();
+            List<String> results = (from libTag in libTags where libTag.TagText.Contains(term) select libTag.TagText).ToList();
+            return Json(results, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
