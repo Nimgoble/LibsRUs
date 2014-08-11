@@ -1,48 +1,38 @@
 ﻿@model IEnumerable<LibsRUs.Models.Lib>
 @using LibsRUs.Models
+@using LibsRUs.ViewModels
 
 @{
     ViewBag.Title = "Libs-R-Us";
 }
 <div class="libs">
     <div class="leftNav">
-        <div>
-            <h4>Programming Languages</h4>
-            <div>
-                @{
-                    foreach (ProgrammingLanguage language in ViewBag.ProgrammingLanguages)
-                    {
-                        <div>@Html.ActionLink(language.Name, "Details", "ProgrammingLanguages", new { ID = language.ID }, null)</div>
+        @{
+            foreach (LibTagTypeSideBarViewModel libType in ViewBag.LibTagTypes)
+            {
+                <h4>@libType.PluralName</h4>
+
+                <div>
+                    @{
+                        foreach (LibTag tag in libType.LibTags)
+                        {
+                            <div>@Html.ActionLink(tag.TagText, "Details", "LibTags", new { ID = tag.ID }, null)</div>
+                        }
+
+                        if (libType.HasMoreLibTags)
+                        {
+                            <div>@Html.ActionLink("more...", "Details", "LibTagTypes", new { ID = libType.ID }, null)</div>
+                        }
                     }
-                }
-            </div>
-        </div>
-        <div>
-            <h4>Platforms</h4>
-            <div>
-                @{
-                    foreach (Platform platform in ViewBag.Platforms)
-                    {
-                        <div>@Html.ActionLink(platform.Name, "Details", "Platforms", new { ID = platform.ID }, null)</div>
-                    }
-                }
-            </div>
-        </div>
-        <div>
-            <h4>Tags</h4>
-            <div>
-                @{
-                    foreach (LibTag tag in ViewBag.LibTags)
-                    {
-                        <div>@Html.ActionLink(tag.TagText, "Details", "LibTags", new { ID = tag.ID }, null)</div>
-                    }
-                }
-            </div>
-        </div>
+                </div>
+                
+            }
+        }
     </div>
     <div class="rightContentContainer">
         <div class="rightContent">
             <div>
+                <i class="fa fa-plus"></i>
                 @Html.ActionLink("Add New Library", "Create")
             </div>
             <table class="libsTable table">

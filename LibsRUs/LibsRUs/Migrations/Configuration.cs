@@ -43,6 +43,16 @@ namespace LibsRUs.Migrations
             context.Libs.AddOrUpdate(h => h.Name, libs);
             context.SaveChanges();
 
+            var tagTypes = new LibTagType[]
+            {
+                new LibTagType() {Name = "Category"},
+                new LibTagType() {Name = "Programming Language"},
+                new LibTagType() {Name = "Platform"}
+            };
+            context.LibTagTypes.AddOrUpdate(h => h.Name, tagTypes);
+            context.SaveChanges();
+
+            LibTagType categoryType = context.LibTagTypes.SingleOrDefault(x => x.Name == "Category");
             //Seed the Tags
             var tags = new LibTag[]
             {
@@ -62,46 +72,52 @@ namespace LibsRUs.Migrations
                 new LibTag{TagText="jQuery"},
                 new LibTag{TagText="MVC", Description="All libraries dealing with the Model-View-Controller pattern"}
             };
+
+            foreach (LibTag libTag in tags)
+                libTag.LibTagType = categoryType;
+
             //tags.ForEach(x => context.LibTags.AddOrUpdate(h => h.TagText, x));
             context.LibTags.AddOrUpdate(h => h.TagText, tags);
             context.SaveChanges();
 
+            LibTagType programmingLanguageType = context.LibTagTypes.SingleOrDefault(x => x.Name == "Programming Language");
             //Seed the ProgrammingLanguages
-            var programmingLanguages = new ProgrammingLanguage[]
+            var programmingLanguages = new LibTag[]
             {
-                new ProgrammingLanguage{Name="C"},
-                new ProgrammingLanguage{Name="C++"},
-                new ProgrammingLanguage{Name="C#"},
-                new ProgrammingLanguage{Name="Visual Basic", Abbreviation="VB"},
-                new ProgrammingLanguage{Name="Javascript", Abbreviation="js"},
-                new ProgrammingLanguage{Name="Java"},
-                new ProgrammingLanguage{Name="Python"},
-                new ProgrammingLanguage{Name="Ruby"},
-                new ProgrammingLanguage{Name="Objective-C"},
-                new ProgrammingLanguage{Name="PHP"},
-                new ProgrammingLanguage{Name="Perl"},
-                new ProgrammingLanguage{Name="ActionScript"},
-                new ProgrammingLanguage{Name="Ada"},
-                new ProgrammingLanguage{Name="Go"},
-                new ProgrammingLanguage{Name="Lua"},
-                new ProgrammingLanguage{Name="Brainfuck"}
+                new LibTag{TagText="C", LibTagType = programmingLanguageType},
+                new LibTag{TagText="C++", LibTagType = programmingLanguageType},
+                new LibTag{TagText="C#", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Visual Basic", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Javascript", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Java", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Python", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Ruby", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Objective-C", LibTagType = programmingLanguageType},
+                new LibTag{TagText="PHP", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Perl", LibTagType = programmingLanguageType},
+                new LibTag{TagText="ActionScript", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Ada", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Go", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Lua", LibTagType = programmingLanguageType},
+                new LibTag{TagText="Brainfuck", LibTagType = programmingLanguageType}
             };
             //programmingLanguages.ForEach(x => context.ProgrammingLanguages.AddOrUpdate(h => h.Name, x));
-            context.ProgrammingLanguages.AddOrUpdate(h => h.Name, programmingLanguages);
+            context.LibTags.AddOrUpdate(h => h.TagText, programmingLanguages);
             context.SaveChanges();
 
+            LibTagType platformType = context.LibTagTypes.SingleOrDefault(x => x.Name == "Platform");
             //Seed the Platforms
-            var platforms = new Platform[]
+            var platforms = new LibTag[]
             {
-                new Platform{Name="Windows"},
-                new Platform{Name="Windows Phone"},
-                new Platform{Name="Linux"},
-                new Platform{Name="Mac OS"},
-                new Platform{Name="iOS"},
-                new Platform{Name="Android"}
+                new LibTag{TagText="Windows", LibTagType = platformType},
+                new LibTag{TagText="Windows Phone", LibTagType = platformType},
+                new LibTag{TagText="Linux", LibTagType = platformType},
+                new LibTag{TagText="Mac OS", LibTagType = platformType},
+                new LibTag{TagText="iOS", LibTagType = platformType},
+                new LibTag{TagText="Android", LibTagType = platformType}
             };
             //platforms.ForEach(x => context.Platforms.AddOrUpdate(h => h.Name, x));
-            context.Platforms.AddOrUpdate(h => h.Name, platforms);
+            context.LibTags.AddOrUpdate(h => h.TagText, platforms);
             context.SaveChanges();
 
             //Add tags, languages, and platforms to the 'WPF Textbox Autocomplete' lib
@@ -112,14 +128,14 @@ namespace LibsRUs.Migrations
             context.SaveChanges();
 
             //Programming Languages
-            ProgrammingLanguage relevantProgrammingLanguage = context.ProgrammingLanguages.Single(x => x.Name == "C#");
-            wpfTextBoxAutoComplete.ProgrammingLanguages.Add(relevantProgrammingLanguage);
+            LibTag relevantProgrammingLanguage = context.LibTags.Single(x => x.TagText == "C#" && x.LibTagType.Name == "Programming Language");
+            wpfTextBoxAutoComplete.LibTags.Add(relevantProgrammingLanguage);
             relevantProgrammingLanguage.Libs.Add(wpfTextBoxAutoComplete);
             context.SaveChanges();
 
             //Platforms
-            var relevantPlatforms = context.Platforms.Where(x => x.Name == "Windows" || x.Name == "Windows Phone").ToList();
-            relevantPlatforms.ForEach(x => { wpfTextBoxAutoComplete.Platforms.Add(x); x.Libs.Add(wpfTextBoxAutoComplete); });
+            var relevantPlatforms = context.LibTags.Where(x => (x.TagText == "Windows" || x.TagText == "Windows Phone") && x.LibTagType.Name == "Platform").ToList();
+            relevantPlatforms.ForEach(x => { wpfTextBoxAutoComplete.LibTags.Add(x); x.Libs.Add(wpfTextBoxAutoComplete); });
             context.SaveChanges();
         }
     }

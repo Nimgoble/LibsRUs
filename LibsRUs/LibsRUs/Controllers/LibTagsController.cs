@@ -37,6 +37,7 @@ namespace LibsRUs.Controllers
         }
 
         // GET: LibTags/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +48,7 @@ namespace LibsRUs.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Create([Bind(Include = "ID,TagText")] LibTag libTag)
         {
             if (ModelState.IsValid)
@@ -60,6 +62,7 @@ namespace LibsRUs.Controllers
         }
 
         // GET: LibTags/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +82,7 @@ namespace LibsRUs.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult Edit([Bind(Include = "ID,TagText")] LibTag libTag)
         {
             if (ModelState.IsValid)
@@ -91,6 +95,7 @@ namespace LibsRUs.Controllers
         }
 
         // GET: LibTags/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +113,7 @@ namespace LibsRUs.Controllers
         // POST: LibTags/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public ActionResult DeleteConfirmed(int id)
         {
             LibTag libTag = db.LibTags.Find(id);
@@ -116,14 +122,24 @@ namespace LibsRUs.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult GetLibTagItem(String tagText)
+        public ActionResult GetLibTagItem(Int32 typeID, String text)
         {
-            LibTag libTag = db.LibTags.SingleOrDefault(x => x.TagText == tagText);
+            LibTag libTag = db.LibTags.SingleOrDefault(x => x.TagText == text);
             if(libTag == null)
             {
                 return Json(new { Succes = false, ErrorText = "Tag doesn't exist" });
             }
             return PartialView("_LibTag", libTag);
+        }
+
+        public ActionResult GetLibTagItemRemovable(Int32 typeID, String text)
+        {
+            LibTag libTag = db.LibTags.SingleOrDefault(x => x.TagText == text);
+            if (libTag == null)
+            {
+                return Json(new { Succes = false, ErrorText = "Tag doesn't exist" });
+            }
+            return PartialView("_LibTagRemovable", libTag);
         }
 
         public ActionResult GetLibTags(String term)

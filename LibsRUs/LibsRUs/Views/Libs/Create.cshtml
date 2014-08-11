@@ -64,7 +64,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <div id="languageContainer" style="width:100%;min-height:200px;border:1px solid #ccc;">
+                <div id="languagesContainer" style="width:100%;min-height:200px;border:1px solid #ccc;">
 
                 </div>
             </div>
@@ -81,7 +81,7 @@
         <div class="form-group">
             <label class="control-label col-md-2"></label>
             <div class="col-md-10">
-                <div id="platformContainer" style="width:100%;min-height:200px;border:1px solid #ccc;">
+                <div id="platformsContainer" style="width:100%;min-height:200px;border:1px solid #ccc;">
 
                 </div>
             </div>
@@ -104,89 +104,16 @@
 {
     @Scripts.Render("~/bundles/jqueryval")
     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    @Scripts.Render("~/Scripts/tagSearch.js")
     <script type="text/javascript">
         $(
             function ()
             {
-                $('#tagSearch').autocomplete
-                (
-                    {
-                        source: function (request, response)
-                        {
-                            $.ajax(
-                            {
-                                url: '@Url.Action("GetLibTags", "LibTags")',
-                                dataType: "json",
-                                data:
-                                {
-                                    term: request.term,
-                                },
-                                success: function (data)
-                                {
-                                    response(data);
-                                }
-                            });
-                        },
-                        //source: '@Url.Action("GetLibTags", "LibTags")',
-                        select: function (event, ui)
-                        {
-                            if (ui.item !== null)
-                            {
-                                selectTag(ui.item.value);
-                                $('#tagSearch').val('');
-                                return false;
-                            }
-                            else
-                            {
-                                $(this).removeClass("field-validation-valid").addClass("field-validation-error");
-                            }
-                        }
-                    }
-                )
-
-                $(document).on
-                (
-                    'click',
-                    '.libTagItem',
-                    function ()
-                    {
-                        $(this).closest('.libTagItem').hide('blind', function () { $(this).remove(); });
-                        var cl = $('#tagsContainer');
-                        var terms = cl.find('.libTagItem');
-                        return false;
-                    }
-                );
+                $('#tagSearch').tagSearch('@Url.Action("GetLibTags", "LibTags")', '@Url.Action("GetLibTagItemRemovable", "LibTags")', '#tagsContainer' );
+                $('#languageSearch').tagSearch('@Url.Action("GetProgrammingLanguages", "ProgrammingLanguages")', '@Url.Action("GetProgrammingLanguageItemRemovable", "ProgrammingLanguages")', '#languagesContainer');
+                $('#platformSearch').tagSearch('@Url.Action("GetPlatforms", "Platforms")', '@Url.Action("GetPlatformItemRemovable", "Platforms")', '#platformsContainer');
             }
         )
-
-        function selectTag(tagText)
-        {
-            var jsonObject =
-            {
-                "tagText": tagText
-            };
-
-            $.ajax
-            (
-                {
-                    url: '@Url.Action("GetLibTagItem", "LibTags")',
-                    contentType: 'application/json; charset=utf-8',
-                    data: jsonObject,
-                    dataType: "html",
-                    cache: false,
-                    success: insertTag
-                }
-            );
-            return false;
-        }
-
-        function insertTag(data)
-        {
-            var cl = $('#tagsContainer');
-            cl.append(data);
-            var terms = cl.find('.libTagItem');
-            terms.last().hide().show('blind');
-        }
 
     </script>
 

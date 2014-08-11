@@ -103,6 +103,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -165,6 +168,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\FontAwesomeBundleConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -172,8 +176,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LibsController.cs" />
     <Compile Include="Controllers\LibTagsController.cs" />
-    <Compile Include="Controllers\PlatformsController.cs" />
-    <Compile Include="Controllers\ProgrammingLanguagesController.cs" />
+    <Compile Include="Controllers\LibTagTypesController.cs" />
     <Compile Include="DAL\LibsRUsContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -186,18 +189,26 @@
     <Compile Include="Migrations\201408061744024_LibTagDescription.Designer.cs">
       <DependentUpon>201408061744024_LibTagDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201408111937180_RemovalOfPlatformsAndProgrammingLanguages.cs" />
+    <Compile Include="Migrations\201408111937180_RemovalOfPlatformsAndProgrammingLanguages.Designer.cs">
+      <DependentUpon>201408111937180_RemovalOfPlatformsAndProgrammingLanguages.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408111945106_LibTagTypeRequired.cs" />
+    <Compile Include="Migrations\201408111945106_LibTagTypeRequired.Designer.cs">
+      <DependentUpon>201408111945106_LibTagTypeRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Lib.cs" />
     <Compile Include="Models\LibTag.cs" />
-    <Compile Include="Models\Platform.cs" />
-    <Compile Include="Models\ProgrammingLanguage.cs" />
+    <Compile Include="Models\LibTagType.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserFavoriteLib.cs" />
     <Compile Include="Models\UserLibRating.cs" />
     <Compile Include="Models\UserLibReview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\LibTagTypeSideBarViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\aspnet-LibsRUs-20140714052657.mdf" />
@@ -210,6 +221,8 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -273,11 +286,16 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\libsrus.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -292,6 +310,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tagSearch.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -333,19 +352,15 @@
     <Content Include="Views\LibTags\Details.cshtml" />
     <Content Include="Views\LibTags\Edit.cshtml" />
     <Content Include="Views\LibTags\Index.cshtml" />
-    <Content Include="Views\Platforms\Create.cshtml" />
-    <Content Include="Views\Platforms\Delete.cshtml" />
-    <Content Include="Views\Platforms\Details.cshtml" />
-    <Content Include="Views\Platforms\Edit.cshtml" />
-    <Content Include="Views\Platforms\Index.cshtml" />
-    <Content Include="Views\ProgrammingLanguages\Create.cshtml" />
-    <Content Include="Views\ProgrammingLanguages\Delete.cshtml" />
-    <Content Include="Views\ProgrammingLanguages\Details.cshtml" />
-    <Content Include="Views\ProgrammingLanguages\Edit.cshtml" />
-    <Content Include="Views\ProgrammingLanguages\Index.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
-    <Content Include="Views\LibTags\_LibTag.cshtml" />
+    <Content Include="Views\Shared\_LibTag.cshtml" />
+    <Content Include="Views\LibTags\_LibTagRemovable.cshtml" />
+    <Content Include="Views\LibTagTypes\Create.cshtml" />
+    <Content Include="Views\LibTagTypes\Delete.cshtml" />
+    <Content Include="Views\LibTagTypes\Details.cshtml" />
+    <Content Include="Views\LibTagTypes\Edit.cshtml" />
+    <Content Include="Views\LibTagTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -361,6 +376,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201408061744024_LibTagDescription.resx">
       <DependentUpon>201408061744024_LibTagDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408111937180_RemovalOfPlatformsAndProgrammingLanguages.resx">
+      <DependentUpon>201408111937180_RemovalOfPlatformsAndProgrammingLanguages.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408111945106_LibTagTypeRequired.resx">
+      <DependentUpon>201408111945106_LibTagTypeRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

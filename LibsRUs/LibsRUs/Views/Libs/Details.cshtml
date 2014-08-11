@@ -5,15 +5,15 @@
     ViewBag.Title = @Model.Name;
 }
 
-<div>
+<div style="height:65px;">
     <div class="float-left">
         <h2>@Model.Name</h2>
     </div>
-    <div class="float-left">
-        @Html.ActionLink("Edit", "Edit", new { id = @Model.ID })
+    <div class="float-left" style="height:100%;margin-left:20px;">
+        @Html.ActionLink("Edit", "Edit", new { id = @Model.ID }, new { style = "position:relative;top:50%;transform:translateY(-50%);" })
     </div>
 </div>
-<div>
+<div style="clear:both;">
     <hr />
     <dl class="dl-horizontal">
 
@@ -25,35 +25,20 @@
         <dt>@Html.DisplayNameFor(model => model.Description)</dt>
         <dd>@Html.DisplayFor(model => model.Description)</dd>
 
-        <dt>Tags</dt>
-        <dd>
-            @{
-                foreach (LibTag tag in Model.LibTags)
-                {
-                    <span>@Html.ActionLink(tag.TagText, "Details", "LibTags", new { ID = tag.ID }, null)</span>
-                }
+        @{
+            foreach (var libType in Model.LibTags.GroupBy(x => x.LibTagType).ToDictionary(group => group.Key, group => group.ToList()))
+            {
+                <dt>@libType.Key.Name</dt>
+                <dd>
+                    @{
+                        foreach (LibTag tag in libType.Value)
+                        {
+                            <span>@{Html.RenderPartial("_LibTag", tag);}</span>
+                        }
+                    }
+                </dd>
             }
-        </dd>
-
-        <dt>Programming Languages</dt>
-        <dd>
-            @{
-                foreach (ProgrammingLanguage language in Model.ProgrammingLanguages)
-                {
-                    <span>@Html.ActionLink(language.Name, "Details", "ProgrammingLanguages", new { ID = language.ID }, null)</span>
-                }
-            }
-        </dd>
-
-        <dt>Platforms</dt>
-        <dd>
-            @{
-                foreach (Platform platform in Model.Platforms)
-                {
-                    <span>@Html.ActionLink(platform.Name, "Details", "Platforms", new { ID = platform.ID }, null)</span>
-                }
-            }
-        </dd>
+        }
     </dl>
 </div>
 

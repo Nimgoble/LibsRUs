@@ -22,6 +22,8 @@ namespace LibsRUs.Models
 
         public String Description { get; set; }
 
+        [Required]
+        public virtual LibTagType LibTagType { get; set; }
         public virtual ICollection<Lib> Libs { get; set; }
     }
 }

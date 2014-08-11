@@ -1,0 +1,12 @@
+﻿@model LibsRUs.Models.LibTag
+
+@{ ViewContext.FormContext = new FormContext(); }
+@using (Html.BeginCollectionItem("LibTags"))
+{
+    <div class="libTagItem">
+        @Html.HiddenFor(m => m.ID)
+        @Html.HiddenFor(m => m.Description)
+        @Html.HiddenFor(m => m.TagText)
+        <div>@Html.ActionLink(Model.TagText, "Details", "LibTags", new { ID = Model.ID }, null)</div>
+    </div>
+}

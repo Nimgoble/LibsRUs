@@ -34,8 +34,7 @@ namespace LibsRUs.DAL
 
         public DbSet<Lib> Libs { get; set; }
         public DbSet<LibTag> LibTags { get; set; }
-        public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
-        public DbSet<Platform> Platforms { get; set; }
+        public DbSet<LibTagType> LibTagTypes { get; set; }
 
         //Join Tables
         //public DbSet<LibPlatform> LibPlatforms { get; set; }
