@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using LibsRUs.DAL;
 using LibsRUs.Models;
+using LibsRUs.ViewModels;
 
 namespace LibsRUs.Controllers
 {
@@ -33,88 +34,88 @@ namespace LibsRUs.Controllers
             {
                 return HttpNotFound();
             }
-            return View(libTagType);
+            return View(new LibTagTypeViewModel(libTagType));
         }
 
         // GET: LibTagTypes/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: LibTagTypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] LibTagType libTagType)
-        {
-            if (ModelState.IsValid)
-            {
-                db.LibTagTypes.Add(libTagType);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "ID,Name")] LibTagType libTagType)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.LibTagTypes.Add(libTagType);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            return View(libTagType);
-        }
+        //    return View(libTagType);
+        //}
 
         // GET: LibTagTypes/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            LibTagType libTagType = db.LibTagTypes.Find(id);
-            if (libTagType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(libTagType);
-        }
+        //public ActionResult Edit(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    LibTagType libTagType = db.LibTagTypes.Find(id);
+        //    if (libTagType == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(libTagType);
+        //}
 
         // POST: LibTagTypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] LibTagType libTagType)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(libTagType).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(libTagType);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "ID,Name")] LibTagType libTagType)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(libTagType).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(libTagType);
+        //}
 
         // GET: LibTagTypes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            LibTagType libTagType = db.LibTagTypes.Find(id);
-            if (libTagType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(libTagType);
-        }
+        //public ActionResult Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    LibTagType libTagType = db.LibTagTypes.Find(id);
+        //    if (libTagType == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(libTagType);
+        //}
 
         // POST: LibTagTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            LibTagType libTagType = db.LibTagTypes.Find(id);
-            db.LibTagTypes.Remove(libTagType);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult DeleteConfirmed(int id)
+        //{
+        //    LibTagType libTagType = db.LibTagTypes.Find(id);
+        //    db.LibTagTypes.Remove(libTagType);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
 
         protected override void Dispose(bool disposing)
         {

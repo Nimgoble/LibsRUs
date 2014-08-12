@@ -25,7 +25,6 @@
                         }
                     }
                 </div>
-                
             }
         }
     </div>
@@ -35,7 +34,27 @@
                 <i class="fa fa-plus"></i>
                 @Html.ActionLink("Add New Library", "Create")
             </div>
-            <table class="libsTable table">
+            <div>
+                @foreach (var item in Model)
+                {
+                    <div class="lib">
+                        <div class="icon">
+                            <i class="fa fa-file-code-o fa-5x"></i>
+                        </div>
+                        <div class="info">
+                            <div class="name">@Html.ActionLink(item.Name, "Details", new { id = item.ID })</div>
+                            <div class="description">@Html.DisplayFor(modelItem => item.Description)</div>
+                            <div class="tags">
+                                @foreach (LibTag libTag in item.LibTags)
+                                {
+                                    Html.RenderPartial("_LibTag", libTag);
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            @*<table class="libsTable table">
                 <thead>
                     <tr>
                         <th class="nameCell">
@@ -59,7 +78,7 @@
                         </tr>
                     }
                 </tbody>
-            </table>
+            </table>*@
         </div>
     </div>
 </div>

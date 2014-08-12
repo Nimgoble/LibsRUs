@@ -151,3 +151,47 @@ input[type="checkbox"].input-validation-error {
     {
         display:inline-block;
     }
+
+.lib
+{
+    width:720px;
+    height:90px;
+    margin:5px;
+}
+    .lib .icon
+    {
+        padding: 5px;
+        display:inline-block;
+        height:100%;
+        vertical-align:top;
+    }
+        .lib .icon i
+        {
+            position:relative;
+            top:50%;
+            transform:translateY(-50%);
+        }
+    .lib .info
+    {
+        padding: 5px;
+        display:inline-block;
+        height:100%;
+    }
+        .lib .info .name
+        {
+            max-width:500px;
+            font-size: large;
+        }
+
+        .lib .info .description
+        {
+            max-width:420px;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+        
+        .lib .info .tags
+        {
+
+        }

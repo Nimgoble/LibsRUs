@@ -1,26 +1,31 @@
-﻿@model LibsRUs.Models.LibTagType
+﻿@model LibsRUs.ViewModels.LibTagTypeViewModel
+@using LibsRUs.Models
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>LibTagType</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
-</div>
+<h2>@Model.PluralName</h2>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+<table class="libsTable" style="margin:0px auto;">
+    <thead>
+        <tr>
+            <th>Tag</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (LibTag libTag in Model.LibTags)
+        {
+            <tr>
+                <td class="nameCell">@Html.ActionLink(libTag.TagText, "Details", "LibTags", new {ID = libTag.ID}, null)</td>
+                <td class="descriptionCell">@libTag.Description</td>
+            </tr>
+            //List the tags under this tag type here
+        }
+    </tbody>
+</table>
+
