@@ -28,7 +28,8 @@
         @{
             foreach (var libType in Model.LibTags.GroupBy(x => x.LibTagType).ToDictionary(group => group.Key, group => group.ToList()))
             {
-                <dt>@libType.Key.Name</dt>
+                LibsRUs.ViewModels.LibTagTypeViewModel vm = new LibsRUs.ViewModels.LibTagTypeViewModel(libType.Key);
+                <dt>@vm.PluralName</dt>
                 <dd>
                     @{
                         foreach (LibTag tag in libType.Value)

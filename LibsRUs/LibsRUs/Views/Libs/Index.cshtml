@@ -30,9 +30,14 @@
     </div>
     <div class="rightContentContainer">
         <div class="rightContent">
-            <div>
-                <i class="fa fa-plus"></i>
-                @Html.ActionLink("Add New Library", "Create")
+            <div style="margin-bottom:10px;">
+                <div style="display:inline-block;">
+                    <input type="text" id="txtSearch" placeholder="Search..." style="width:500px;max-width:500px;" />
+                </div>
+                <div style="display:inline-block;">
+                    <i class="fa fa-plus"></i>
+                    @Html.ActionLink("Add New Library", "Create")
+                </div>
             </div>
             <div>
                 @foreach (var item in Model)
